@@ -1,9 +1,13 @@
-import { BOOLEAN, INTEGER, Model, STRING } from 'sequelize';
+import { BOOLEAN, INTEGER, Model } from 'sequelize';
 import db from '.';
 
 class Match extends Model {
   id!: number;
-  teamName!: string;
+  hometeam!: number;
+  hometeamgoals!: number;
+  awayteam!: number;
+  awayteamgoals!: number;
+  inprogress!: number;
 }
 
 Match.init(
@@ -15,7 +19,7 @@ Match.init(
       autoIncrement: true,
     },
     hometeam: {
-      type: STRING,
+      type: INTEGER,
       allowNull: false,
       field: 'home_team',
     },
@@ -43,7 +47,7 @@ Match.init(
   {
     timestamps: false,
     sequelize: db,
-    modelName: 'matches',
+    modelName: 'matchs',
   },
 );
 

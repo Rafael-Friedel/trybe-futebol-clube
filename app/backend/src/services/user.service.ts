@@ -1,5 +1,5 @@
-import ErrorWithStatus from '../database/midleware/ErrorWithCode';
 import User from '../database/models/User.model';
+import ErrorWithStatus from '../midleware/ErrorWithCode';
 
 class UserService {
   static async validate(email: string, password: string): Promise<void> {

@@ -8,9 +8,10 @@ const Teams = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      username: {
+      teamname: {
         allowNull: false,
         type: DataTypes.STRING,
+        field: 'team_name',
       },
     },
     { timestamps: false },
