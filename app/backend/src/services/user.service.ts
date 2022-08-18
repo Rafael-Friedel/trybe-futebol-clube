@@ -1,9 +1,13 @@
 import * as bcrypt from 'bcryptjs';
 import ErrorWithStatus from '../database/midleware/ErrorWithStatus';
 import User from '../database/models/User.model';
+import authService from './auth.service';
 
 class UserService {
-  static async validate(email: string, password: string): Promise<void> {
+  static async validateEmailAndPassword(
+    email: string,
+    password: string,
+  ): Promise<void> {
     if (!password || !email) {
       throw new ErrorWithStatus('All fields must be filled', 400);
     }
@@ -21,6 +25,23 @@ class UserService {
       throw new ErrorWithStatus('Incorrect email or password', 401);
     }
     return user;
+  }
+
+  static async validate(auth: string | undefined) {
+    if (!auth) {
+      throw new ErrorWithStatus('Token must be a valid token', 401);
+    }
+    const token = auth.includes('Bearer') ? auth.split(' ')[1] : auth;
+    const user = authService.readToken(token);
+    console.log(user);
+    return user;
+  }
+
+  static async exists(email: string) {
+    const user = await User.findOne({ where: { email }, raw: true });
+    if (!user) {
+      throw new ErrorWithStatus('Token must be a valid token', 401);
+    }
   }
 }
 

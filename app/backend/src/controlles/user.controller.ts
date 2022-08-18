@@ -6,10 +6,16 @@ import UserService from '../services/user.service';
 class UserController {
   static async login(req: Request, res: Response): Promise<void> {
     const { email, password } = req.body;
-    await UserService.validate(email, password);
+    await UserService.validateEmailAndPassword(email, password);
     const { id, username } = (await UserService.login(email, password)) as User;
     const token = await authService.createToken({ id, username });
     res.status(200).json({ token });
+  }
+
+  static async validate(req: Request, res: Response) {
+    const auth = req.headers.authorization;
+    const role = await UserService.validate(auth);
+    res.status(200).json({ role });
   }
 }
 
