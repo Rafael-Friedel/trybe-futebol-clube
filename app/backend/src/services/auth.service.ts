@@ -1,5 +1,6 @@
-import { Jwt, sign, verify } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import IData from '../interfaces/IData.interface';
+import IJwt from '../interfaces/IJwt.interface';
 
 const secret = process.env.JWT_SECRET || 'secret';
 
@@ -10,7 +11,7 @@ class authService {
   }
 
   static async readToken(token: string) {
-    const { payload: data } = verify(token, secret) as Jwt;
+    const { data } = verify(token, secret) as IJwt;
     return data;
   }
 }

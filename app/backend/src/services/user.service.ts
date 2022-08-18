@@ -32,16 +32,19 @@ class UserService {
       throw new ErrorWithStatus('Token must be a valid token', 401);
     }
     const token = auth.includes('Bearer') ? auth.split(' ')[1] : auth;
-    const user = authService.readToken(token);
+    console.log(token);
+    const user = await authService.readToken(token);
     console.log(user);
-    return user;
+    return user.id;
   }
 
-  static async exists(email: string) {
-    const user = await User.findOne({ where: { email }, raw: true });
+  static async exists(id: number) {
+    const user = await User.findOne({ where: { id }, raw: true });
     if (!user) {
       throw new ErrorWithStatus('Token must be a valid token', 401);
     }
+    console.log(user);
+    return user.role;
   }
 }
 
