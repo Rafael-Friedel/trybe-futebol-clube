@@ -3,6 +3,9 @@ import ErrorWithStatus from '../database/midleware/ErrorWithStatus';
 import User from '../database/models/User.model';
 import authService from './auth.service';
 
+const msgIncorrectEmailOrPassword = 'Incorrect email or password';
+const msgTokenInvalid = 'Token must be a valid token';
+
 class UserService {
   static async validateEmailAndPassword(email: string, password: string) {
     if (!password || !email) {
@@ -10,24 +13,26 @@ class UserService {
     }
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     if (!regex.test(email) || password.length < 7) {
-      throw new ErrorWithStatus('Incorrect email or password', 401);
+      throw new ErrorWithStatus(msgIncorrectEmailOrPassword, 401);
     }
   }
 
   static async login(email: string, password: string) {
     const user = await User.findOne({ where: { email }, raw: true });
-    console.log(password);
+    if (!user) {
+      throw new ErrorWithStatus(msgIncorrectEmailOrPassword, 401);
+    }
     const { password: isValid } = user as User;
     const pass = await bcrypt.compare(password, isValid);
     if (!pass) {
-      throw new ErrorWithStatus('Incorrect email or password', 401);
+      throw new ErrorWithStatus(msgIncorrectEmailOrPassword, 401);
     }
     return user;
   }
 
   static async validate(auth: string | undefined) {
     if (!auth) {
-      throw new ErrorWithStatus('Token must be a valid token', 401);
+      throw new ErrorWithStatus(msgTokenInvalid, 401);
     }
     const token = auth.includes('Bearer') ? auth.split(' ')[1] : auth;
     const user = await authService.readToken(token);
@@ -37,7 +42,7 @@ class UserService {
   static async exists(id: number) {
     const user = await User.findOne({ where: { id }, raw: true });
     if (!user) {
-      throw new ErrorWithStatus('Token must be a valid token', 401);
+      throw new ErrorWithStatus(msgTokenInvalid, 401);
     }
     return user.role;
   }
