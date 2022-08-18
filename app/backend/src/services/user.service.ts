@@ -32,9 +32,7 @@ class UserService {
       throw new ErrorWithStatus('Token must be a valid token', 401);
     }
     const token = auth.includes('Bearer') ? auth.split(' ')[1] : auth;
-    console.log(token);
     const user = await authService.readToken(token);
-    console.log(user);
     return user.id;
   }
 
@@ -43,7 +41,6 @@ class UserService {
     if (!user) {
       throw new ErrorWithStatus('Token must be a valid token', 401);
     }
-    console.log(user);
     return user.role;
   }
 }
