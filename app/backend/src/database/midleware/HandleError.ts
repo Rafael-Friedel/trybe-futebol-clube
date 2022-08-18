@@ -10,7 +10,7 @@ class MidlewareOfError {
   ) {
     const { message, status } = err;
     console.log({ message });
-    res.status(status).json({ message });
+    res.status(status || 500).json({ message });
   }
 }
 

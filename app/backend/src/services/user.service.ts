@@ -4,10 +4,7 @@ import User from '../database/models/User.model';
 import authService from './auth.service';
 
 class UserService {
-  static async validateEmailAndPassword(
-    email: string,
-    password: string,
-  ): Promise<void> {
+  static async validateEmailAndPassword(email: string, password: string) {
     if (!password || !email) {
       throw new ErrorWithStatus('All fields must be filled', 400);
     }
@@ -19,8 +16,9 @@ class UserService {
 
   static async login(email: string, password: string) {
     const user = await User.findOne({ where: { email }, raw: true });
-    const { password: valid } = user as User;
-    const pass = await bcrypt.compare(password, valid);
+    console.log(password);
+    const { password: isValid } = user as User;
+    const pass = await bcrypt.compare(password, isValid);
     if (!pass) {
       throw new ErrorWithStatus('Incorrect email or password', 401);
     }
