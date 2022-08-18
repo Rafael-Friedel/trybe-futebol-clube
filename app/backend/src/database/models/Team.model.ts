@@ -14,7 +14,7 @@ Team.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    teamname: {
+    teamName: {
       type: STRING,
       allowNull: false,
       field: 'team_name',

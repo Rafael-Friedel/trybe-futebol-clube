@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import * as sinon from 'sinon';
+import Sinon, * as sinon from 'sinon';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
@@ -7,6 +7,7 @@ import { app } from '../app';
 import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
+import UserService from '../services/user.service';
 
 chai.use(chaiHttp);
 
@@ -16,7 +17,9 @@ describe('/login', () => {
   before(() => {
     sinon.restore();
   });
-  it('', () => {});
+  it('should return 200', async () => {
+    Sinon.stub(UserService, 'validateEmailAndPassword').resolves(undefined);
+  });
   /**
    * Exemplo do uso de stubs com tipos
    */

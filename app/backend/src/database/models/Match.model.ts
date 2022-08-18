@@ -4,11 +4,11 @@ import Team from './Team.model';
 
 class Match extends Model {
   id!: number;
-  hometeam!: number;
-  hometeamgoals!: number;
-  awayteam!: number;
-  awayteamgoals!: number;
-  inprogress!: number;
+  homeTeam!: number;
+  homeTeamGoals!: number;
+  awayTeam!: number;
+  awayTeamGoals!: number;
+  inProgress!: number;
 }
 
 Match.init(
@@ -19,27 +19,27 @@ Match.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    hometeam: {
+    homeTeam: {
       type: INTEGER,
       allowNull: false,
       field: 'home_team',
     },
-    hometeamgoals: {
+    homeTeamGoals: {
       type: INTEGER,
       allowNull: false,
       field: 'home_team_goals',
     },
-    awayteam: {
+    awayTeam: {
       type: INTEGER,
       allowNull: false,
       field: 'away_team',
     },
-    awayteamgoals: {
+    awayTeamGoals: {
       type: INTEGER,
       allowNull: false,
       field: 'away_team_goals',
     },
-    inprogress: {
+    inProgress: {
       type: BOOLEAN,
       allowNull: false,
       field: 'in_progress',
