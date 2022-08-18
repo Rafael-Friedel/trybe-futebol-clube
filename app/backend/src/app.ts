@@ -3,6 +3,7 @@ import * as express from 'express';
 import 'express-async-errors';
 import MidlewareOfError from './database/midleware/HandleError';
 import routerLogin from './routes/login.route';
+import routerTeams from './routes/teams.route';
 
 class App {
   public app: express.Express;
@@ -32,6 +33,7 @@ class App {
 
     this.app.use(cors());
     this.app.use('/login', routerLogin);
+    this.app.use('/teams', routerTeams);
 
     this.app.use(MidlewareOfError.HandleError);
   }
