@@ -1,5 +1,6 @@
+import * as bcrypt from 'bcryptjs';
+import ErrorWithStatus from '../database/midleware/ErrorWithStatus';
 import User from '../database/models/User.model';
-import ErrorWithStatus from '../midleware/ErrorWithCode';
 
 class UserService {
   static async validate(email: string, password: string): Promise<void> {
@@ -12,8 +13,13 @@ class UserService {
     }
   }
 
-  static async login(email: string) {
-    const user = await User.findOne({ where: { email } });
+  static async login(email: string, password: string) {
+    const user = await User.findOne({ where: { email }, raw: true });
+    const { password: valid } = user as User;
+    const pass = await bcrypt.compare(password, valid);
+    if (!pass) {
+      throw new ErrorWithStatus('Incorrect email or password', 401);
+    }
     return user;
   }
 }
