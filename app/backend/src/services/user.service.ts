@@ -1,7 +1,6 @@
 import * as bcrypt from 'bcryptjs';
 import ErrorWithStatus from '../database/midleware/ErrorWithStatus';
 import User from '../database/models/User.model';
-import authService from './auth.service';
 
 const msgIncorrectEmailOrPassword = 'Incorrect email or password';
 const msgTokenInvalid = 'Token must be a valid token';
@@ -21,15 +20,6 @@ class UserService {
       throw new ErrorWithStatus(msgIncorrectEmailOrPassword, 401);
     }
     return user;
-  }
-
-  static async validate(auth: string | undefined) {
-    if (!auth) {
-      throw new ErrorWithStatus(msgTokenInvalid, 401);
-    }
-    const token = auth.includes('Bearer') ? auth.split(' ')[1] : auth;
-    const user = await authService.readToken(token);
-    return user.id;
   }
 
   static async exists(id: number) {
