@@ -2,6 +2,7 @@ import ErrorWithStatus from '../database/midleware/ErrorWithStatus';
 import Match from '../database/models/Match.model';
 import Team from '../database/models/Team.model';
 import IMatch from '../interfaces/IMatch.interface';
+import IMatchUpdate from '../interfaces/IMatchUpdate.interface';
 
 class MatchService {
   static async getAll() {
@@ -74,6 +75,17 @@ class MatchService {
     if (!team1 || !team2) {
       throw new ErrorWithStatus('There is no team with such id!', 404);
     }
+  }
+
+  static async update(body: IMatchUpdate) {
+    const { id, awayTeamGoals, homeTeamGoals } = body;
+    await Match.update(
+      {
+        awayTeamGoals,
+        homeTeamGoals,
+      },
+      { where: { id, inProgress: true } },
+    );
   }
 }
 

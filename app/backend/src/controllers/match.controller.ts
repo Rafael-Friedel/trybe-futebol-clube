@@ -27,6 +27,13 @@ class MatchController {
     await MatchService.finishMatch(+id);
     res.status(200).json({ message: 'Finished' });
   }
+
+  static async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const body = { id: +id, ...req.body };
+    await MatchService.update(body);
+    res.status(200).end();
+  }
 }
 
 export default MatchController;
