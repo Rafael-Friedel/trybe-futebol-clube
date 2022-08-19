@@ -7,17 +7,10 @@ const msgIncorrectEmailOrPassword = 'Incorrect email or password';
 const msgTokenInvalid = 'Token must be a valid token';
 
 class UserService {
-  static async validateEmailAndPassword(email: string, password: string) {
+  static async login(email: string, password: string) {
     if (!password || !email) {
       throw new ErrorWithStatus('All fields must be filled', 400);
     }
-    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    if (!regex.test(email) || password.length < 7) {
-      throw new ErrorWithStatus(msgIncorrectEmailOrPassword, 401);
-    }
-  }
-
-  static async login(email: string, password: string) {
     const user = await User.findOne({ where: { email }, raw: true });
     if (!user) {
       throw new ErrorWithStatus(msgIncorrectEmailOrPassword, 401);

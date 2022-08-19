@@ -3,7 +3,7 @@ import db from '.';
 
 class User extends Model {
   id!: number;
-  userName!: string;
+  username!: string;
   role!: string;
   email!: string;
   password!: string;
@@ -17,7 +17,7 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    userName: {
+    username: {
       allowNull: false,
       type: STRING,
     },
@@ -39,6 +39,7 @@ User.init(
     timestamps: false,
     sequelize: db,
     modelName: 'users',
+    underscored: true,
   },
 );
 

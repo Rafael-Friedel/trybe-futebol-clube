@@ -1,6 +1,6 @@
 interface IData {
   id: number;
-  userName: string;
+  username: string;
 }
 
 export default IData;
