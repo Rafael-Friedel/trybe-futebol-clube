@@ -21,6 +21,27 @@ class MatchService {
     });
     return allMatches;
   }
+
+  static async findAllByProgress(inProgress: boolean) {
+    const allMatches = await Match.findAll({
+      where: { inProgress },
+      include: [
+        {
+          model: Team,
+          as: 'teamHome',
+          attributes: ['teamName'],
+        },
+        {
+          model: Team,
+          as: 'teamAway',
+          attributes: ['teamName'],
+        },
+      ],
+      raw: true,
+      nest: true,
+    });
+    return allMatches;
+  }
 }
 
 export default MatchService;
