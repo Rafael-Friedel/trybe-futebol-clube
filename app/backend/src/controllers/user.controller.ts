@@ -1,19 +1,19 @@
 import { Request, Response } from 'express';
 import User from '../database/models/User.model';
-import authService from '../services/auth.service';
+import AuthService from '../services/auth.service';
 import UserService from '../services/user.service';
 
 class UserController {
   static async login(req: Request, res: Response): Promise<void> {
     const { email, password } = req.body;
     const data = (await UserService.login(email, password)) as User;
-    const token = await authService.createToken(data);
+    const token = await AuthService.createToken(data);
     res.status(200).json({ token });
   }
 
   static async validate(req: Request, res: Response) {
     const auth = req.headers.authorization;
-    const id = await UserService.validate(auth);
+    const id = await AuthService.validateToken(auth);
     const role = await UserService.exists(id);
     res.status(200).json({ role });
   }
