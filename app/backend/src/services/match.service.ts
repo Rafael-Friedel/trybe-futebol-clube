@@ -50,6 +50,15 @@ class MatchService {
     const newMatch = await Match.create(add);
     return newMatch;
   }
+
+  static async finishMatch(id: number) {
+    await Match.update(
+      {
+        inProgress: false,
+      },
+      { where: { id } },
+    );
+  }
 }
 
 export default MatchService;
