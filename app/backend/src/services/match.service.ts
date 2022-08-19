@@ -1,5 +1,6 @@
 import Match from '../database/models/Match.model';
 import Team from '../database/models/Team.model';
+import IMatch from '../interfaces/IMatch.interface';
 
 class MatchService {
   static async getAll() {
@@ -41,6 +42,13 @@ class MatchService {
       nest: true,
     });
     return allMatches;
+  }
+
+  static async create(match: IMatch) {
+    // match.inProgress = true; por que não funciona?
+    const add = { ...match, inProgress: true };
+    const newMatch = await Match.create(add);
+    return newMatch;
   }
 }
 
