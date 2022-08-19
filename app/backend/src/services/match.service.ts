@@ -1,3 +1,4 @@
+import ErrorWithStatus from '../database/midleware/ErrorWithStatus';
 import Match from '../database/models/Match.model';
 import Team from '../database/models/Team.model';
 import IMatch from '../interfaces/IMatch.interface';
@@ -58,6 +59,21 @@ class MatchService {
       },
       { where: { id } },
     );
+  }
+
+  static async validTeams(teams: IMatch) {
+    const { awayTeam, homeTeam } = teams;
+    if (awayTeam === homeTeam) {
+      throw new ErrorWithStatus(
+        'It is not possible to create a match with two equal teams',
+        401,
+      );
+    }
+    const team1 = await Team.findByPk(awayTeam);
+    const team2 = await Team.findByPk(homeTeam);
+    if (!team1 || !team2) {
+      throw new ErrorWithStatus('There is no team with such id!', 404);
+    }
   }
 }
 

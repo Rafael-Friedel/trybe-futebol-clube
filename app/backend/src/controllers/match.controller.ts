@@ -17,6 +17,7 @@ class MatchController {
   static async create(req: Request, res: Response) {
     const token = req.headers.authorization;
     await AuthService.validateToken(token);
+    await MatchService.validTeams(req.body);
     const match = await MatchService.create(req.body);
     res.status(201).json(match);
   }
