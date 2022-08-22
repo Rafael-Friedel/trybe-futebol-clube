@@ -58,7 +58,7 @@ class MatchService {
       {
         inProgress: false,
       },
-      { where: { id } },
+      { where: { id, inProgress: true } },
     );
   }
 
@@ -84,7 +84,7 @@ class MatchService {
         awayTeamGoals,
         homeTeamGoals,
       },
-      { where: { id, inProgress: true } },
+      { where: { id } },
     );
   }
 }
