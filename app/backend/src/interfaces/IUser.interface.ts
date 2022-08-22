@@ -1,8 +1,9 @@
-import User from '../database/models/User.model';
-
-interface IUser extends User {
+interface IUser {
   id: number;
-  userName: string;
+  username: string;
+  password: string;
+  email: string;
+  role: string;
 }
 
 export default IUser;

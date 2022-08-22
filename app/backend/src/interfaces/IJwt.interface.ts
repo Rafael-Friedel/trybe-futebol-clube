@@ -1,8 +1,8 @@
 import { Jwt } from 'jsonwebtoken';
-import IData from './IData.interface';
+import IUser from './IUser.interface';
 
 interface IJwt extends Jwt {
-  data: IData;
+  data: IUser;
 }
 
 export default IJwt;

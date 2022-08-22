@@ -18,20 +18,16 @@ User.init(
       autoIncrement: true,
     },
     username: {
-      allowNull: false,
       type: STRING,
     },
     role: {
-      allowNull: false,
       type: STRING,
     },
     email: {
-      allowNull: false,
       type: STRING,
       unique: true,
     },
     password: {
-      allowNull: false,
       type: STRING,
     },
   },
