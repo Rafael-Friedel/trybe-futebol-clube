@@ -13,8 +13,7 @@ class UserController {
 
   static async validate(req: Request, res: Response) {
     const auth = req.headers.authorization;
-    const id = await AuthService.validateToken(auth);
-    const role = await UserService.exists(id);
+    const role = await AuthService.validateToken(auth);
     res.status(200).json({ role });
   }
 }

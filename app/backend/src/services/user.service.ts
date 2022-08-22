@@ -21,14 +21,6 @@ class UserService {
     }
     return user;
   }
-
-  static async exists(id: number) {
-    const user = await User.findOne({ where: { id }, raw: true });
-    if (!user) {
-      throw new ErrorWithStatus(msgTokenInvalid, 401);
-    }
-    return user.role;
-  }
 }
 
 export default UserService;

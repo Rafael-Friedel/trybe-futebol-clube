@@ -1,5 +1,6 @@
 import { sign, verify } from 'jsonwebtoken';
 import ErrorWithStatus from '../database/midleware/ErrorWithStatus';
+import User from '../database/models/User.model';
 import IJwt from '../interfaces/IJwt.interface';
 import IUser from '../interfaces/IUser.interface';
 
@@ -8,10 +9,10 @@ const msgTokenInvalid = 'Token must be a valid token';
 const secret = process.env.JWT_SECRET || 'secret';
 
 class AuthService {
-  static async createToken(data: IUser): Promise<string> {
-    const { id, username } = data;
-    const newData = { id, username };
-    const token = sign({ newData }, secret);
+  static async createToken(newData: IUser): Promise<string> {
+    const { id, username } = newData;
+    const data = { id, username };
+    const token = sign({ data }, secret);
     return token;
   }
 
@@ -24,13 +25,13 @@ class AuthService {
     if (!auth) {
       throw new ErrorWithStatus(msgTokenInvalid, 401);
     }
-    try {
-      const token = auth.includes('Bearer') ? auth.split(' ')[1] : auth;
-      const user = await this.readToken(token);
-      return user.id;
-    } catch (err) {
+    const token = auth.includes('Bearer') ? auth.split(' ')[1] : auth;
+    const { id } = await this.readToken(token);
+    const user = await User.findOne({ where: { id }, raw: true });
+    if (!user) {
       throw new ErrorWithStatus(msgTokenInvalid, 401);
     }
+    return user.role;
   }
 }
 
