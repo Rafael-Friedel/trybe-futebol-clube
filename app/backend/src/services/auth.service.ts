@@ -17,8 +17,12 @@ class AuthService {
   }
 
   static async readToken(token: string) {
-    const { data } = verify(token, secret) as IJwt;
-    return data;
+    try {
+      const { data } = verify(token, secret) as IJwt;
+      return data;
+    } catch (error) {
+      throw new ErrorWithStatus(msgTokenInvalid, 401);
+    }
   }
 
   static async validateToken(auth: string | undefined) {

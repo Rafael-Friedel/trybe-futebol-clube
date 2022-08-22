@@ -32,7 +32,7 @@ class MatchController {
     const { id } = req.params;
     const body = { id: +id, ...req.body };
     await MatchService.update(body);
-    res.status(200).end();
+    res.status(200).send('Partida atualizada com sucesso');
   }
 }
 
