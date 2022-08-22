@@ -1,15 +1,17 @@
 import { sign, verify } from 'jsonwebtoken';
 import ErrorWithStatus from '../database/midleware/ErrorWithStatus';
-import IData from '../interfaces/IData.interface';
 import IJwt from '../interfaces/IJwt.interface';
+import IUser from '../interfaces/IUser.interface';
 
 const msgTokenInvalid = 'Token must be a valid token';
 
 const secret = process.env.JWT_SECRET || 'secret';
 
 class AuthService {
-  static async createToken(data: IData): Promise<string> {
-    const token = sign({ data }, secret);
+  static async createToken(data: IUser): Promise<string> {
+    const { id, username } = data;
+    const newData = { id, username };
+    const token = sign({ newData }, secret);
     return token;
   }
 
