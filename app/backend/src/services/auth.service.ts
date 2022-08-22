@@ -25,9 +25,10 @@ class AuthService {
     if (!auth) {
       throw new ErrorWithStatus(msgTokenInvalid, 401);
     }
+
     const token = auth.includes('Bearer') ? auth.split(' ')[1] : auth;
     const { id } = await this.readToken(token);
-    const user = await User.findOne({ where: { id }, raw: true });
+    const user = await User.findByPk(id);
     if (!user) {
       throw new ErrorWithStatus(msgTokenInvalid, 401);
     }
