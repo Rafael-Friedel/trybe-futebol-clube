@@ -19,7 +19,7 @@ const teamMock: ITeam = {
 describe('team', () => {
   describe('/teams', () => {
     beforeEach(() => Sinon.restore());
-    it('should return 200 and one list of teams', async () => {
+    it('should return 200 and a list of teams', async () => {
       Sinon.stub(Team, 'findAll').resolves([teamMock as Team]);
       const response: Response = await chai.request(app).get('/teams');
       expect(response.status).to.equal(200);

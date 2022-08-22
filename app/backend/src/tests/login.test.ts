@@ -27,7 +27,7 @@ const userMock: IUser = {
 describe.only('users', () => {
   beforeEach(() => Sinon.restore());
   describe('/login', () => {
-    it('should return 200 and one token', async () => {
+    it('should return 200 and a token', async () => {
       Sinon.stub(User, 'findOne').resolves();
       Sinon.stub(UserService, 'login').resolves();
       Sinon.stub(AuthService, 'createToken').resolves('any-token');
@@ -36,7 +36,7 @@ describe.only('users', () => {
       expect(response.body).to.be.deep.equal({ token: 'any-token' });
     });
 
-    it('should return one error: All fields must be filled and 400', async () => {
+    it('should return an error: All fields must be filled and 400', async () => {
       const response: Response = await chai
         .request(app)
         .post('/login')
@@ -47,7 +47,7 @@ describe.only('users', () => {
       expect(response.status).to.equal(400);
     });
 
-    it('should return one error: All fields must be filled and 400', async () => {
+    it('should return an error: All fields must be filled and 400', async () => {
       const response: Response = await chai
         .request(app)
         .post('/login')
@@ -58,7 +58,7 @@ describe.only('users', () => {
       expect(response.status).to.equal(400);
     });
 
-    it('should return one error: Incorrect email or password and 401', async () => {
+    it('should return an error: Incorrect email or password and 401', async () => {
       Sinon.stub(User, 'findOne').resolves(undefined);
       const response: Response = await chai
         .request(app)
@@ -70,7 +70,7 @@ describe.only('users', () => {
       });
     });
 
-    it('should return one error: Incorrect email or password and 401', async () => {
+    it('should return an error: Incorrect email or password and 401', async () => {
       Sinon.stub(User, 'findOne').resolves(userMock as User);
       Sinon.stub(bcrypt, 'compare').resolves(undefined);
       const response: Response = await chai
@@ -86,14 +86,14 @@ describe.only('users', () => {
 
   describe('/validate', () => {
     beforeEach(() => Sinon.restore());
-    it('should return 200 and one role', async () => {
+    it('should return 200 and an role', async () => {
       Sinon.stub(AuthService, 'validateToken').resolves(userMock.role);
       const response: Response = await chai.request(app).get('/login/validate');
       expect(response.status).to.equal(200);
       expect(response.body).to.be.deep.equal({ role: 'any-role' });
     });
 
-    it('should return one error: Token must be a valid token and 401', async () => {
+    it('should return an error: Token must be a valid token and 401', async () => {
       const response: Response = await chai.request(app).get('/login/validate');
       expect(response.status).to.equal(401);
       expect(response.body).to.be.deep.equal({
@@ -101,7 +101,7 @@ describe.only('users', () => {
       });
     });
 
-    it('should return one error: Token must be a valid token and 401', async () => {
+    it('should return an error: Token must be a valid token and 401', async () => {
       const response: Response = await chai
         .request(app)
         .get('/login/validate')
@@ -113,7 +113,7 @@ describe.only('users', () => {
       });
     });
 
-    it('should return one error: Token must be a valid token and 401', async () => {
+    it('should return an error: Token must be a valid token and 401', async () => {
       Sinon.stub(User, 'findOne').resolves(undefined);
       const response: Response = await chai
         .request(app)
