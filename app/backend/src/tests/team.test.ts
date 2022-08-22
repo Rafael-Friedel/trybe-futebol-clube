@@ -16,7 +16,7 @@ const teamMock: ITeam = {
   teamname: 'any-team',
 };
 
-describe.only('team', () => {
+describe('team', () => {
   describe('/teams', () => {
     beforeEach(() => Sinon.restore());
     it('should return 200 and one list of teams', async () => {
