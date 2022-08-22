@@ -3,7 +3,6 @@ import ErrorWithStatus from '../database/midleware/ErrorWithStatus';
 import User from '../database/models/User.model';
 
 const msgIncorrectEmailOrPassword = 'Incorrect email or password';
-const msgTokenInvalid = 'Token must be a valid token';
 
 class UserService {
   static async login(email: string, password: string) {

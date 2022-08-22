@@ -9,8 +9,8 @@ const msgTokenInvalid = 'Token must be a valid token';
 const secret = process.env.JWT_SECRET || 'secret';
 
 class AuthService {
-  static async createToken(newData: IUser): Promise<string> {
-    const { id, username } = newData;
+  static async createToken(user: IUser): Promise<string> {
+    const { id, username } = user;
     const data = { id, username };
     const token = sign({ data }, secret);
     return token;
