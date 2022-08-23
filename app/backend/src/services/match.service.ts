@@ -71,7 +71,7 @@ class MatchService {
       );
     }
     const team1 = await Team.findByPk(awayTeam);
-    const team2 = await Team.findByPk(homeTeam);
+    const team2 = await Team.findOne({ where: { homeTeam } });
     if (!team1 || !team2) {
       throw new ErrorWithStatus('There is no team with such id!', 404);
     }

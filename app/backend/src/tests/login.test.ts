@@ -24,7 +24,7 @@ const userMock: IUser = {
   role: 'any-role',
 };
 
-describe.only('users', () => {
+describe('users', () => {
   beforeEach(() => Sinon.restore());
   describe('/login', () => {
     it('should return 200 and a token', async () => {
@@ -102,23 +102,11 @@ describe.only('users', () => {
     });
 
     it('should return an error: Token must be a valid token and 401', async () => {
-      const response: Response = await chai
-        .request(app)
-        .get('/login/validate')
-        .send('any-token');
-
-      expect(response.status).to.equal(401);
-      expect(response.body).to.be.deep.equal({
-        message: 'Token must be a valid token',
-      });
-    });
-
-    it('should return an error: Token must be a valid token and 401', async () => {
       Sinon.stub(User, 'findOne').resolves(undefined);
       const response: Response = await chai
         .request(app)
         .get('/login/validate')
-        .send('any-token');
+        .auth('any-token', { type: 'bearer' });
 
       expect(response.status).to.equal(401);
       expect(response.body).to.be.deep.equal({

@@ -1,6 +1,4 @@
-import Match from '../database/models/Match.model';
-
-interface IMatch extends Match {
+interface IMatch {
   homeTeam: number;
   awayTeam: number;
   homeTeamGoals: number;
