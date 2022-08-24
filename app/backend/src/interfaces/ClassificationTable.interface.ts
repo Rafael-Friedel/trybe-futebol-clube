@@ -7,7 +7,7 @@ interface ClassificationTable {
   totalLosses: number;
   goalsFavor: number;
   goalsOwn: number;
-  goalsBalance: string;
+  goalsBalance: number;
   efficiency: string;
 }
 
