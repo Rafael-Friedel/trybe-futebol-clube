@@ -3,7 +3,7 @@ import ClassificationTable from '../interfaces/ClassificationTable.interface';
 import queryBestInAway from '../queries/bestInAway';
 import queryBestInHomes from '../queries/bestInHome';
 
-class leaderboardService {
+class LeaderboardService {
   static async bestshome() {
     const [allTime] = await db.query(queryBestInHomes);
     return allTime as ClassificationTable[];
@@ -15,4 +15,4 @@ class leaderboardService {
   }
 }
 
-export default leaderboardService;
+export default LeaderboardService;
