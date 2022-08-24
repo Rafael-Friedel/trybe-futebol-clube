@@ -1,5 +1,5 @@
 interface ClassificationTable {
-  time: string;
+  name: string;
   totalPoints: number;
   totalGames: number;
   totalVictories: number;
@@ -7,8 +7,8 @@ interface ClassificationTable {
   totalLosses: number;
   goalsFavor: number;
   goalsOwn: number;
-  goalsBalance: number;
-  efficiency: number;
+  goalsBalance: string;
+  efficiency: string;
 }
 
 export default ClassificationTable;
