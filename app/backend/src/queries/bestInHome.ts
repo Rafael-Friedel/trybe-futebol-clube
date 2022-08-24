@@ -1,6 +1,6 @@
-const queryBestInHomes = `SELECT
-t.team_name as time,
-  cast(SUM((((m.home_team_goals > m.away_team_goals) * 3) + 
+const queryBestInHomes = 'SELECT t.team_name as `name`,'
+  + `cast(SUM((((m.home_team_goals >
+   m.away_team_goals) * 3) + 
   (m.home_team_goals = m.away_team_goals))) as unsigned integer) as totalPoints,
   cast(COUNT(m.home_team) as unsigned integer)  AS totalGames,
   cast(SUM(m.home_team_goals > m.away_team_goals) as unsigned integer) AS totalVictories,
