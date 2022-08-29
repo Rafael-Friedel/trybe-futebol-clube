@@ -86,7 +86,7 @@ describe('leaderboard', () => {
     });
   });
 
-  describe.only('leaderboard', () => {
+  describe('leaderboard', () => {
     beforeEach(() => Sinon.restore());
     it('should return 200 and a classification table correct', async () => {
       Sinon.stub(db, 'query').resolves([[tableMock], Op.any] as [
