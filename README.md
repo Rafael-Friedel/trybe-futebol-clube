@@ -13,6 +13,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 
 - TypeScript
 - Sequelize
+- MySQL
 - express
 - jwt
 - POO
