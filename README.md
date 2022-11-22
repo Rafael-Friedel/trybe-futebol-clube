@@ -21,7 +21,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 
 ### Desafios
 
-Realizar toda a parte do back-end usando arquitetura MSC(), aplicando SOLID e POO, usando express e testar de forma unitária 100% da aplicação. 
+Realizar toda a parte do back-end usando arquitetura MSC, aplicando SOLID e POO, usando express e testar de forma unitária 100% da aplicação. 
 
 <details>
 <summary><strong> ⚠️ Configurações mínimas para execução do projeto</strong></summary><br />
