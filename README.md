@@ -12,6 +12,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 ### Tecnologias utilizadas:
 
 - TypeScript
+- Node
 - Sequelize
 - MySQL
 - express
